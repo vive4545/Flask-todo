@@ -7,7 +7,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///todo.db"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
-
+# for database creating models
 class Todo(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(80), nullable=False)
@@ -26,7 +26,7 @@ with app.app_context():
 # @app.route('/')
 # def hello_world():
 #     return 'Hello, World!'
-
+#crud (create)
 @app.route('/', methods =['GET','POST'])
 
 def products():
@@ -41,14 +41,14 @@ def products():
 
     allTodo = Todo.query.all()
     return render_template('clientdetails.html',allTodo=allTodo)
-
+#crud(read)
 @app.route('/show')
 def show():
     allTodo = Todo.query.all()
     print(allTodo)
     return render_template('clientdetails.html',allTodo=allTodo)
 
-
+#crud(update)
 @app.route('/update/<int:id>')
 def update(id):
     allTodo = Todo.query.filter_by(id=id).first()
@@ -56,7 +56,7 @@ def update(id):
     return render_template('update.html',allTodo=allTodo)
 
 
-
+# crud(delete)
 @app.route('/delete/<int:id>')
 def delete(id):
     todo = Todo.query.filter_by(id=id).first()
